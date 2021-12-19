@@ -5,8 +5,9 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.View
 import com.example.popularlibraries.databinding.ActivityMainBinding
+import moxy.MvpAppCompatActivity
 
-class MainActivity : AppCompatActivity(), MainView {
+class MainActivity : MvpAppCompatActivity(), MainView {
 
     private lateinit var binding: ActivityMainBinding
     private val presenter = MainPresenter(this)
