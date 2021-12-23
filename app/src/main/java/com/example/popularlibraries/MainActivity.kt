@@ -1,44 +1,25 @@
 package com.example.popularlibraries
 
+import android.R
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.view.View
-import com.example.popularlibraries.databinding.ActivityMainBinding
-import moxy.MvpAppCompatActivity
+import com.github.terrakok.cicerone.androidx.AppNavigator
 
-class MainActivity : MvpAppCompatActivity(), MainView {
+class MainActivity : AppCompatActivity() {
+    private val navigator = AppNavigator(activity = this, R.id.content)
 
-    private lateinit var binding: ActivityMainBinding
-    private val presenter = MainPresenter(this)
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        App.instance.navigatorHolder.setNavigator(navigator)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        binding.btnCounter1.setOnClickListener {
-            presenter.counterClick(0)
-        }
-        binding.btnCounter2.setOnClickListener {
-            presenter.counterClick(1)
-        }
-        binding.btnCounter3.setOnClickListener {
-            presenter.counterClick(2)
-        }
+        App.instance.router.navigateTo(App.instance.screens.userScreen())
     }
 
-    override fun setFirstButtonText(text: String) {
-        binding.btnCounter1.text = text
+    override fun onPause() {
+        super.onPause()
+        App.instance.navigatorHolder.removeNavigator()
     }
-
-    override fun setSecondButtonText(text: String) {
-        binding.btnCounter2.text = text
-    }
-
-    override fun setThirdButtonText(text: String) {
-        binding.btnCounter3.text = text
-    }
-
-
 }

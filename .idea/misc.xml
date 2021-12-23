@@ -4,6 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Bro/AndroidStudioProjects/Popularlibraries/app/src/main/res/layout/activity_main.xml" value="0.4528302049755674" />
+        <entry key="..\:/Users/Bro/AndroidStudioProjects/Popularlibraries/app/src/main/res/layout/fragment_blank.xml" value="0.1" />
+        <entry key="..\:/Users/Bro/AndroidStudioProjects/Popularlibraries/app/src/main/res/layout/fragment_user.xml" value="0.1" />
+        <entry key="..\:/Users/Bro/AndroidStudioProjects/Popularlibraries/app/src/main/res/layout/fragment_users.xml" value="0.1" />
+        <entry key="..\:/Users/Bro/AndroidStudioProjects/Popularlibraries/app/src/main/res/layout/recycler_item.xml" value="0.2988679352838745" />
+        <entry key="..\:/Users/Bro/AndroidStudioProjects/Popularlibraries/app/src/main/res/layout/user_item.xml" value="0.1" />
+        <entry key="..\:/Users/Bro/AndroidStudioProjects/Popularlibraries/app/src/main/res/layout/view_user.xml" value="0.4528302049755674" />
+        <entry key="..\:/Users/Bro/AndroidStudioProjects/Popularlibraries/app/src/main/res/layout/view_users.xml" value="0.2988679352838745" />
       </map>
     </option>
   </component>
