@@ -8,11 +8,21 @@ class UserPresenter() : MvpPresenter<UserView>() {
 
     private val router by lazy { App.instance.router }
     private val screens by lazy { App.instance.screens }
+    private val repository by lazy { App.instance.githubUsersRepository }
 
     fun register(login: String, password: String) {
         if (isLoginValid(login) && isPasswordValid(password)) {
-            val user = GitHubUser(login, password)
+            repository.getUserByLogin(login).subscribe { user ->
+                checkPassword(user, password)
+            }
+        }
+    }
+
+    private fun checkPassword(user: GitHubUser, password: String) {
+        if (user.password == password) {
             showUsersFragment(user)
+        } else{
+            viewState.showError("Wrong password")
         }
     }
 

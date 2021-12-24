@@ -1,6 +1,7 @@
 package com.example.popularlibraries
 
 import android.app.Application
+import com.example.popularlibraries.data.GitHubUsersRepository
 import com.example.popularlibraries.navigation.AppScreens
 import com.example.popularlibraries.navigation.IScreens
 import com.github.terrakok.cicerone.Cicerone
@@ -26,5 +27,7 @@ class App : Application() {
         super.onCreate()
         instance = this
     }
+
+    val githubUsersRepository by lazy { GitHubUsersRepository() }
 
 }
