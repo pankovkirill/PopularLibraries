@@ -27,27 +27,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_password"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Введите пароль"
-        android:padding="5dp"
-        app:endIconCheckable="true"
-        app:endIconMode="custom"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_login">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/input_edit_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
     <Button
         android:id="@+id/send_button"
         android:layout_width="wrap_content"
@@ -55,5 +34,5 @@
         android:layout_margin="5dp"
         android:text="Отправить"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/input_password" />
+        app:layout_constraintTop_toBottomOf="@id/input_login" />
 </androidx.constraintlayout.widget.ConstraintLayout>

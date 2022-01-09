@@ -2,45 +2,31 @@ package com.example.popularlibraries.mvpuser
 
 import com.example.popularlibraries.App
 import com.example.popularlibraries.data.GitHubUser
+import com.example.popularlibraries.data.GitHubUserRepository
+import com.example.popularlibraries.data.User
+import com.example.popularlibraries.data.convertUserToUserDetail
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
 
-class UserPresenter() : MvpPresenter<UserView>() {
+class UserPresenter(
+    private val userLogin: String,
+    private val repository: GitHubUserRepository,
+) : MvpPresenter<UserView>() {
 
-    private val router by lazy { App.instance.router }
-    private val screens by lazy { App.instance.screens }
-
-    fun register(login: String, password: String) {
-        if (isLoginValid(login) && isPasswordValid(password)) {
-            val user = GitHubUser(login, password)
-            showUsersFragment(user)
-        }
+    override fun onFirstViewAttach() {
+        showUserData(userLogin)
     }
 
-    private fun showUsersFragment(user: GitHubUser) {
-        router.navigateTo(screens.usersScreen(user))
+    private fun showUserData(userLogin: String) {
+        repository.getUserDataByLogin(userLogin)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ user: GitHubUser ->
+                viewState.showUserDetail(convertUserToUserDetail(user))
+            }, { error: Throwable ->
+                viewState.showError(error.message.toString())
+            })
     }
 
-    private fun isPasswordValid(password: String) = when {
-        password.isEmpty() -> {
-            viewState.showError("Password is empty")
-            false
-        }
-        password.length < 3 -> {
-            viewState.showError("Password too short")
-            false
-        }
-        else -> true
-    }
-
-    private fun isLoginValid(login: String) = when {
-        login.isEmpty() -> {
-            viewState.showError("Login is empty")
-            false
-        }
-        login.length < 3 -> {
-            viewState.showError("Login too short")
-            false
-        }
-        else -> true
-    }
 }

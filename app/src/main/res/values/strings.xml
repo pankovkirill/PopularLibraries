@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">Popular libraries</string>
-    <string name="counter_one">Счетчик 1</string>
-    <string name="counter_two">Счетчик 2</string>
-    <string name="counter_three">Счетчик 3</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login">Login:</string>
+    <string name="type">Type:</string>
+    <string name="sys_admin">Sys admin:</string>
+    <string name="user_avatar">User avatar</string>
 </resources>

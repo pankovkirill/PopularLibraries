@@ -1,25 +1,30 @@
 package com.example.popularlibraries
 
-import android.R
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.popularlibraries.App.Companion.navigationHolder
+import com.example.popularlibraries.App.Companion.router
+import com.example.popularlibraries.mvpusers.UsersScreen
 import com.github.terrakok.cicerone.androidx.AppNavigator
 
 class MainActivity : AppCompatActivity() {
-    private val navigator = AppNavigator(activity = this, R.id.content)
 
-    override fun onResumeFragments() {
-        super.onResumeFragments()
-        App.instance.navigatorHolder.setNavigator(navigator)
-    }
+    private val navigator = AppNavigator(this, R.id.activity_main_container)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        App.instance.router.navigateTo(App.instance.screens.userScreen())
+        setContentView(R.layout.activity_main)
+
+        router.navigateTo(UsersScreen())
+    }
+
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        navigationHolder.setNavigator(navigator)
     }
 
     override fun onPause() {
         super.onPause()
-        App.instance.navigatorHolder.removeNavigator()
+        navigationHolder.removeNavigator()
     }
 }
