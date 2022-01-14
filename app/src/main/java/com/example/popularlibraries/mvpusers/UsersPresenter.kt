@@ -1,14 +1,23 @@
 package com.example.popularlibraries.mvpusers
 
-import com.example.popularlibraries.App.Companion.router
 import com.example.popularlibraries.data.*
 import com.example.popularlibraries.mvpuser.UserScreen
+import com.github.terrakok.cicerone.Router
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
+import javax.inject.Inject
 
-class UsersPresenter(private val repository: GitHubUserRepository) :
-    MvpPresenter<UsersView>() {
+class UsersPresenter : MvpPresenter<UsersView>() {
+
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var repository: GitHubUserRepository
+
+    @Inject
+    lateinit var userConverter: UserConverter
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -24,7 +33,7 @@ class UsersPresenter(private val repository: GitHubUserRepository) :
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ usersList ->
-                viewState.showUsers(convertUserListToUserItemList(usersList))
+                viewState.showUsers(userConverter.convertUserListToUserItemList(usersList))
             }, { error: Throwable ->
                 viewState.showError(error.message.toString())
             })

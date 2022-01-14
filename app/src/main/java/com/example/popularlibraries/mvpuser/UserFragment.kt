@@ -11,11 +11,11 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.example.popularlibraries.data.GitHubUserDetail
-import com.example.popularlibraries.data.GitHubUsersRepositoryFactory
 import com.example.popularlibraries.databinding.FragmentUserBinding
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import com.bumptech.glide.request.target.Target
+import com.example.popularlibraries.App
 
 class UserFragment(login: String) : MvpAppCompatFragment(), UserView {
 
@@ -23,7 +23,9 @@ class UserFragment(login: String) : MvpAppCompatFragment(), UserView {
     private val binding get() = _binding!!
 
     private val presenter by moxyPresenter {
-        UserPresenter(login, GitHubUsersRepositoryFactory.create())
+        UserPresenter(login).apply {
+            App.instance.component.inject(this)
+        }
     }
 
 
