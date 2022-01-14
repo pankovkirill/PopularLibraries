@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.popularlibraries.App
 import moxy.MvpAppCompatFragment
 import com.example.popularlibraries.data.GitHubUserListItem
-import com.example.popularlibraries.data.GitHubUsersRepositoryFactory
 import com.example.popularlibraries.databinding.FragmentUsersBinding
 import com.example.popularlibraries.recycler.UsersAdapter
 import moxy.ktx.moxyPresenter
@@ -23,11 +23,12 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, UsersAdapter.OnItemClic
     private var _binding: FragmentUsersBinding? = null
     private val binding get() = _binding!!
 
-    private val repository = GitHubUsersRepositoryFactory.create()
     private val adapter = UsersAdapter(this)
 
     private val presenter by moxyPresenter {
-        UsersPresenter(repository)
+        UsersPresenter().apply {
+            App.instance.component.inject(this)
+        }
     }
 
     override fun onCreateView(

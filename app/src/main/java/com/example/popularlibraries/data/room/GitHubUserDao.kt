@@ -9,7 +9,6 @@ import io.reactivex.rxjava3.core.Single
 
 @Dao
 interface GitHubUserDao {
-
     @Query("SELECT * FROM github_users_table")
     fun getUsers(): Single<List<GitHubUser>>
 
@@ -17,9 +16,8 @@ interface GitHubUserDao {
     fun getUserByLogin(login: String): Single<GitHubUser>
 
     @Insert(onConflict = REPLACE)
-    fun saveUser (user: GitHubUser)
+    fun saveUser(user: GitHubUser)
 
     @Insert(onConflict = REPLACE)
-    fun saveUser (users: List<GitHubUser>)
-
+    fun saveUser(users: List<GitHubUser>)
 }

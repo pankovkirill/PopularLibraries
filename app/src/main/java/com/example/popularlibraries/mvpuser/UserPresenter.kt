@@ -1,18 +1,22 @@
 package com.example.popularlibraries.mvpuser
 
-import com.example.popularlibraries.App
 import com.example.popularlibraries.data.GitHubUser
 import com.example.popularlibraries.data.GitHubUserRepository
-import com.example.popularlibraries.data.User
-import com.example.popularlibraries.data.convertUserToUserDetail
+import com.example.popularlibraries.data.UserConverter
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import moxy.MvpPresenter
+import javax.inject.Inject
 
 class UserPresenter(
     private val userLogin: String,
-    private val repository: GitHubUserRepository,
 ) : MvpPresenter<UserView>() {
+
+    @Inject
+    lateinit var repository: GitHubUserRepository
+
+    @Inject
+    lateinit var userConverter: UserConverter
 
     override fun onFirstViewAttach() {
         showUserData(userLogin)
@@ -23,7 +27,7 @@ class UserPresenter(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ user: GitHubUser ->
-                viewState.showUserDetail(convertUserToUserDetail(user))
+                viewState.showUserDetail(userConverter.convertUserToUserDetail(user))
             }, { error: Throwable ->
                 viewState.showError(error.message.toString())
             })
