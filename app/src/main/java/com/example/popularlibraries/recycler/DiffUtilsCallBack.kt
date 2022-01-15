@@ -1,11 +1,11 @@
 package com.example.popularlibraries.recycler
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.popularlibraries.data.GitHubUserListItem
+import com.example.popularlibraries.data.UserListItem
 
 class DiffUtilsCallBack(
-    private val oldUsersList: List<GitHubUserListItem>,
-    private val newUsersList: List<GitHubUserListItem>,
+    private val oldUsersList: List<UserListItem>,
+    private val newUsersList: List<UserListItem>,
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize() = oldUsersList.size

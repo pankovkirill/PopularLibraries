@@ -1,23 +1,20 @@
 package com.example.popularlibraries.data
 
-import com.example.popularlibraries.data.GitHubUser
-import com.example.popularlibraries.data.GitHubUserDetail
-import com.example.popularlibraries.data.GitHubUserListItem
+class UserConverter() {
 
-class UserConverter {
     fun convertUserListToUserItemList(
-        userList: List<GitHubUser>,
-    ): List<GitHubUserListItem> {
-        val userItemList = ArrayList<GitHubUserListItem>()
-        for (user in userList) {
+        userLists: List<User>,
+    ): List<UserListItem> {
+        val userItemList = ArrayList<UserListItem>()
+        for (user in userLists) {
             userItemList.add(convertUserToUserItem(user))
         }
         return userItemList
     }
 
     fun convertUserToUserDetail(
-        user: GitHubUser,
-    ) = GitHubUserDetail(
+        user: User,
+    ) = UserDetail(
         user.id,
         user.login,
         user.avatarUrl,
@@ -26,8 +23,8 @@ class UserConverter {
     )
 
     private fun convertUserToUserItem(
-        user: GitHubUser,
-    ) = GitHubUserListItem(
+        user: User,
+    ) = UserListItem(
         user.id,
         user.login,
         user.avatarUrl

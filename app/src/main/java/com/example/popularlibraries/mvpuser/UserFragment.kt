@@ -10,12 +10,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
-import com.example.popularlibraries.data.GitHubUserDetail
 import com.example.popularlibraries.databinding.FragmentUserBinding
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import com.bumptech.glide.request.target.Target
 import com.example.popularlibraries.App
+import com.example.popularlibraries.data.UserDetail
 
 class UserFragment(login: String) : MvpAppCompatFragment(), UserView {
 
@@ -23,8 +23,9 @@ class UserFragment(login: String) : MvpAppCompatFragment(), UserView {
     private val binding get() = _binding!!
 
     private val presenter by moxyPresenter {
-        UserPresenter(login).apply {
-            App.instance.component.inject(this)
+        UserPresenter().apply {
+            init(login)
+            App.instance.component.provideUserFragmentComponent().build().inject(this)
         }
     }
 
@@ -47,7 +48,7 @@ class UserFragment(login: String) : MvpAppCompatFragment(), UserView {
             UserFragment(login)
     }
 
-    override fun showUserDetail(user: GitHubUserDetail) {
+    override fun showUserDetail(user: UserDetail) {
         binding.fragmentUserLoginTextView.text = user.login
         binding.fragmentUserTypeTextView.text = user.type
         binding.fragmentUserSysAdminTextView.text = user.sysAdmin.toString()
