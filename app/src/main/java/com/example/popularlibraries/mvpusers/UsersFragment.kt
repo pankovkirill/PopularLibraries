@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.popularlibraries.App
 import moxy.MvpAppCompatFragment
-import com.example.popularlibraries.data.GitHubUserListItem
+import com.example.popularlibraries.data.UserListItem
 import com.example.popularlibraries.databinding.FragmentUsersBinding
 import com.example.popularlibraries.recycler.UsersAdapter
 import moxy.ktx.moxyPresenter
@@ -55,7 +55,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, UsersAdapter.OnItemClic
         _binding = null
     }
 
-    override fun showUsers(users: List<GitHubUserListItem>) {
+    override fun showUsers(users: List<UserListItem>) {
         adapter.setUsers(users)
     }
 
@@ -63,7 +63,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, UsersAdapter.OnItemClic
         Toast.makeText(context, "Error: $message", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onUserClick(user: GitHubUserListItem) {
+    override fun onUserClick(user: UserListItem) {
         presenter.showUserFragment(user.login)
     }
 }

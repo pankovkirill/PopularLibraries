@@ -1,6 +1,6 @@
 package com.example.popularlibraries.data
 
-data class GitHubUserListItem(
+data class UserListItem(
     val id: Int,
     val login: String,
     val url: String,

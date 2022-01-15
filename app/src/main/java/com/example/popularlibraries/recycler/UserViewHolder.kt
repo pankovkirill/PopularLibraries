@@ -8,16 +8,16 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
-import com.example.popularlibraries.data.GitHubUserListItem
 import com.example.popularlibraries.databinding.UserListItemBinding
 import com.bumptech.glide.request.target.Target
+import com.example.popularlibraries.data.UserListItem
 
 class UserViewHolder(private val binding: UserListItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     private val context = binding.userListItemAvatarImageView.context
 
-    fun bind(user: GitHubUserListItem, userClickListener: UsersAdapter.OnItemClickListener) {
+    fun bind(user: UserListItem, userClickListener: UsersAdapter.OnItemClickListener) {
         binding.userListItemName.text = user.login
 
         Glide.with(context)
