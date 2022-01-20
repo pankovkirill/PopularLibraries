@@ -11,10 +11,11 @@ import moxy.MvpAppCompatFragment
 import com.example.popularlibraries.data.UserListItem
 import com.example.popularlibraries.databinding.FragmentUsersBinding
 import com.example.popularlibraries.recycler.UsersAdapter
+import com.example.popularlibraries.ui.ProgressFragment
 import moxy.ktx.moxyPresenter
 
 
-class UsersFragment : MvpAppCompatFragment(), UsersView, UsersAdapter.OnItemClickListener {
+class UsersFragment : ProgressFragment(), UsersView, UsersAdapter.OnItemClickListener {
 
     companion object {
         fun newInstance() = UsersFragment()
@@ -56,11 +57,29 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, UsersAdapter.OnItemClic
     }
 
     override fun showUsers(users: List<UserListItem>) {
+        hideAll()
         adapter.setUsers(users)
     }
 
-    override fun showError(message: String) {
-        Toast.makeText(context, "Error: $message", Toast.LENGTH_SHORT).show()
+    override fun showError(message: String, tumbler: Boolean) {
+        changeViewVisibility(binding.usersFragmentErrorContainer, tumbler)
+        if (tumbler) {
+            binding.usersFragmentErrorMessage.text = message
+            binding.usersFragmentTryAgainButton.setOnClickListener {
+                hideAll()
+                displayProgress(true)
+                presenter.updateUsersList()
+            }
+        }
+    }
+
+    override fun displayProgress(tumbler: Boolean) {
+        changeViewVisibility(binding.usersFragmentProgressBar, tumbler)
+    }
+
+    private fun hideAll() {
+        changeViewVisibility(binding.usersFragmentErrorContainer, false)
+        changeViewVisibility(binding.usersFragmentProgressBar, false)
     }
 
     override fun onUserClick(user: UserListItem) {

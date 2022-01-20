@@ -30,14 +30,16 @@ class UsersPresenter :
         router.navigateTo(UserScreen(login))
     }
 
-    private fun updateUsersList() {
+    fun updateUsersList() {
+        viewState.displayProgress(true)
         repository.getUsers()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doFinally { viewState.displayProgress(false) }
             .subscribe({ usersList ->
                 viewState.showUsers(userConverter.convertUserListToUserItemList(usersList))
             }, { error: Throwable ->
-                viewState.showError(error.message.toString())
+                viewState.showError(error.message.toString(), true)
             })
     }
 }
