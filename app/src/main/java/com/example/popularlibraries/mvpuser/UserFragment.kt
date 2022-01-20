@@ -16,8 +16,9 @@ import moxy.ktx.moxyPresenter
 import com.bumptech.glide.request.target.Target
 import com.example.popularlibraries.App
 import com.example.popularlibraries.data.UserDetail
+import com.example.popularlibraries.ui.ProgressFragment
 
-class UserFragment(login: String) : MvpAppCompatFragment(), UserView {
+class UserFragment(login: String) : ProgressFragment(), UserView {
 
     private var _binding: FragmentUserBinding? = null
     private val binding get() = _binding!!
@@ -61,8 +62,18 @@ class UserFragment(login: String) : MvpAppCompatFragment(), UserView {
         }
     }
 
-    override fun showError(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    override fun showError(message: String, tumbler: Boolean) {
+        changeViewVisibility(binding.userFragmentErrorContainer, tumbler)
+        if (tumbler) {
+            binding.userFragmentErrorMessage.text = message
+            binding.userFragmentTryAgainButton.setOnClickListener {
+                presenter.router.exit()
+            }
+        }
+    }
+
+    override fun displayProgress(tumbler: Boolean) {
+        changeViewVisibility(binding.userFragmentProgressBar, tumbler)
     }
 
     private fun getGlideListener() = object : RequestListener<Drawable> {
